@@ -69,7 +69,6 @@ tbody td { padding:11px 14px; border-top:1px solid #1e2d4a; }
 </style>
 </head>
 <body>
-
 <div class="header">
   <div>
     <div style="font-size:.72rem;color:#63cab7;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">BM1 PARTNER INTELLIGENCE</div>
@@ -77,327 +76,122 @@ tbody td { padding:11px 14px; border-top:1px solid #1e2d4a; }
   </div>
   <div class="date-badge" id="dateBadge">📅 데이터 로딩중...</div>
 </div>
-
 <div id="loadingArea" class="loading">
   <div class="spinner"></div>
   <div>Google Sheets에서 최신 데이터를 불러오는 중...</div>
 </div>
-
 <div id="mainContent" style="display:none">
   <div class="kpi-grid">
-    <div class="kpi-card total">
-      <div class="kpi-label">전체 파트너</div>
-      <div class="kpi-value" id="kpiTotal">-</div>
-      <div class="kpi-sub" id="kpiActiveSub">-</div>
-    </div>
-    <div class="kpi-card success">
-      <div class="kpi-label">전체 누적 성사</div>
-      <div class="kpi-value green" id="kpiSuccess">-</div>
-      <div class="kpi-sub" id="kpiOrderSub">-</div>
-    </div>
-    <div class="kpi-card rate">
-      <div class="kpi-label">평균 성사전환율</div>
-      <div class="kpi-value yellow" id="kpiRate">-</div>
-      <div class="kpi-sub">성사 ÷ 주문확정</div>
-    </div>
-    <div class="kpi-card core">
-      <div class="kpi-label">핵심파트너 (50건+)</div>
-      <div class="kpi-value pink" id="kpiCore">-</div>
-      <div class="kpi-sub" id="kpiCoreSub">-</div>
-    </div>
+    <div class="kpi-card total"><div class="kpi-label">전체 파트너</div><div class="kpi-value" id="kpiTotal">-</div><div class="kpi-sub" id="kpiActiveSub">-</div></div>
+    <div class="kpi-card success"><div class="kpi-label">전체 누적 성사</div><div class="kpi-value green" id="kpiSuccess">-</div><div class="kpi-sub" id="kpiOrderSub">-</div></div>
+    <div class="kpi-card rate"><div class="kpi-label">평균 성사전환율</div><div class="kpi-value yellow" id="kpiRate">-</div><div class="kpi-sub">성사 ÷ 주문확정</div></div>
+    <div class="kpi-card core"><div class="kpi-label">핵심파트너 (50건+)</div><div class="kpi-value pink" id="kpiCore">-</div><div class="kpi-sub" id="kpiCoreSub">-</div></div>
   </div>
-
   <div class="section-title">📊 파트너별 성과</div>
   <div class="charts-row">
-    <div class="chart-card">
-      <h3>누적 성사 현황 (활동 파트너)</h3>
-      <canvas id="barChart" height="260"></canvas>
-    </div>
-    <div class="chart-card">
-      <h3>파트너 분포</h3>
-      <canvas id="doughnutChart" height="220"></canvas>
-      <div class="legend-dots" id="donutLegend"></div>
-    </div>
+    <div class="chart-card"><h3>누적 성사 현황 (활동 파트너)</h3><canvas id="barChart" height="260"></canvas></div>
+    <div class="chart-card"><h3>파트너 분포</h3><canvas id="doughnutChart" height="220"></canvas><div class="legend-dots" id="donutLegend"></div></div>
   </div>
-
   <div class="section-title">📈 월별 성사 트렌드</div>
   <div class="charts-row">
-    <div class="chart-card" style="grid-column:1/-1">
-      <h3 id="monthlyChartTitle">월별 성사 현황 (핵심파트너 TOP5)</h3>
-      <canvas id="monthlyChart" height="200"></canvas>
-    </div>
+    <div class="chart-card" style="grid-column:1/-1"><h3 id="monthlyChartTitle">월별 성사 트렌드</h3><canvas id="monthlyChart" height="200"></canvas></div>
   </div>
-
   <div class="tab-row">
     <button class="tab-btn active" onclick="showTab('cumul')">📋 누적 실적</button>
     <button class="tab-btn" onclick="showTab('monthly')">📅 월별 실적</button>
   </div>
   <div class="table-section">
     <div class="table-wrap">
-      <table id="cumulTable" style="display:table">
-        <thead>
-          <tr>
-            <th style="width:30px">#</th>
-            <th>파트너명</th>
-            <th>담당자</th>
-            <th class="num">상담개시</th>
-            <th class="num">주문확정</th>
-            <th class="num">취소</th>
-            <th class="num">누적 성사</th>
-            <th>성과</th>
-            <th class="num">전환율</th>
-            <th>상태</th>
-          </tr>
-        </thead>
+      <table id="cumulTable">
+        <thead><tr><th>#</th><th>파트너명</th><th>담당자</th><th class="num">상담개시</th><th class="num">주문확정</th><th class="num">취소</th><th class="num">누적성사</th><th>성과</th><th class="num">전환율</th><th>상태</th></tr></thead>
         <tbody id="cumulBody"></tbody>
       </table>
       <table id="monthlyTable" style="display:none">
-        <thead>
-          <tr>
-            <th>월</th>
-            <th>파트너명</th>
-            <th>담당자</th>
-            <th class="num">상담개시</th>
-            <th class="num">주문확정</th>
-            <th class="num">취소</th>
-            <th class="num">성사</th>
-            <th class="num">전환율</th>
-          </tr>
-        </thead>
+        <thead><tr><th>월</th><th>파트너명</th><th>담당자</th><th class="num">상담개시</th><th class="num">주문확정</th><th class="num">취소</th><th class="num">성사</th><th class="num">전환율</th></tr></thead>
         <tbody id="monthlyBody"></tbody>
       </table>
     </div>
   </div>
 </div>
-
-<div id="errorArea" class="error-box" style="display:none">
-  ⚠️ 데이터를 불러오지 못했습니다. Apps Script 웹앱 URL을 확인해주세요.<br>
-  <small id="errorMsg"></small>
-</div>
-
+<div id="errorArea" class="error-box" style="display:none">⚠️ 데이터 로드 실패<br><small id="errorMsg"></small></div>
 <div class="footer">⚡ 자동 갱신 · Google Sheets(BM1_파트너별_실적) 연동 · 읽기 전용</div>
-
 <script>
-// ====== 설정: Apps Script 웹앱 URL ======
-const APPS_SCRIPT_URL = 'APPS_SCRIPT_URL_HERE';
-// =========================================
-
-const statusMap = {
-  core:     { label:'🟢 핵심파트너', cls:'core' },
-  active:   { label:'🟡 활동중',     cls:'active' },
-  low:      { label:'🟠 저조',       cls:'low' },
-  inactive: { label:'🔴 비활동',     cls:'inactive' }
-};
-
-function getStatus(success) {
-  if (success >= 50) return 'core';
-  if (success >= 10) return 'active';
-  if (success >= 1)  return 'low';
-  return 'inactive';
-}
-
-let barChartInst, doughnutInst, monthlyChartInst;
-let partnerData = [], monthlyData = [];
-let currentTab = 'cumul';
-
-async function loadData() {
-  try {
-    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'APPS_SCRIPT_URL_HERE') {
-      throw new Error('Apps Script URL이 설정되지 않았습니다. index.html의 APPS_SCRIPT_URL을 수정해주세요.');
-    }
-    const res = await fetch(APPS_SCRIPT_URL);
-    const json = await res.json();
-    if (json.status !== 'ok') throw new Error(json.message);
-
-    const { latestDate, partnerSummary, monthlyData: md } = json.data;
-    partnerData = partnerSummary;
-    monthlyData = md;
-
-    document.getElementById('dateBadge').textContent = '📅 기준일: ' + latestDate;
-    renderKPI(partnerData);
-    renderBarChart(partnerData);
-    renderDoughnut(partnerData);
-    renderMonthlyChart(partnerData, monthlyData);
-    renderCumulTable(partnerData);
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyuU-MBTTyS4kLjiVAJz-D_k8WxtRV3oBcm54Ej_zzosXyYGX_WDZNocdNQXaycAfn7/exec';
+const statusMap = { core:{label:'🟢 핵심파트너',cls:'core'}, active:{label:'🟡 활동중',cls:'active'}, low:{label:'🟠 저조',cls:'low'}, inactive:{label:'🔴 비활동',cls:'inactive'} };
+function getStatus(s){ return s>=50?'core':s>=10?'active':s>=1?'low':'inactive'; }
+let barInst,donutInst,monthInst;
+async function loadData(){
+  try{
+    const res=await fetch(APPS_SCRIPT_URL);
+    const json=await res.json();
+    if(json.status!=='ok') throw new Error(json.message);
+    const{latestDate,partnerSummary,monthlyData}=json.data;
+    document.getElementById('dateBadge').textContent='📅 기준일: '+latestDate;
+    renderKPI(partnerSummary);
+    renderBar(partnerSummary);
+    renderDonut(partnerSummary);
+    renderMonthly(partnerSummary,monthlyData);
+    renderCumulTable(partnerSummary);
     renderMonthlyTable(monthlyData);
-
-    document.getElementById('loadingArea').style.display = 'none';
-    document.getElementById('mainContent').style.display = 'block';
-  } catch(e) {
-    document.getElementById('loadingArea').style.display = 'none';
-    document.getElementById('errorArea').style.display = 'block';
-    document.getElementById('errorMsg').textContent = e.message;
+    document.getElementById('loadingArea').style.display='none';
+    document.getElementById('mainContent').style.display='block';
+  }catch(e){
+    document.getElementById('loadingArea').style.display='none';
+    document.getElementById('errorArea').style.display='block';
+    document.getElementById('errorMsg').textContent=e.message;
   }
 }
-
-function renderKPI(partners) {
-  const totalSuccess = partners.reduce((s,p) => s+p.success, 0);
-  const totalOrder   = partners.reduce((s,p) => s+p.order, 0);
-  const core   = partners.filter(p => p.success >= 50).length;
-  const active = partners.filter(p => p.success >= 10 && p.success < 50).length;
-  const low    = partners.filter(p => p.success >= 1  && p.success < 10).length;
-  const inact  = partners.filter(p => p.success === 0).length;
-
-  document.getElementById('kpiTotal').textContent   = partners.length;
-  document.getElementById('kpiActiveSub').textContent = '핵심 ' + core + ' · 활동 ' + active + ' · 저조 ' + low + ' · 비활동 ' + inact;
-  document.getElementById('kpiSuccess').textContent = totalSuccess.toLocaleString();
-  document.getElementById('kpiOrderSub').textContent = '주문확정 ' + totalOrder.toLocaleString() + '건 기준';
-  const rate = totalOrder > 0 ? (totalSuccess/totalOrder*100).toFixed(1) : '0.0';
-  document.getElementById('kpiRate').textContent    = rate + '%';
-  document.getElementById('kpiCore').textContent    = core;
-  document.getElementById('kpiCoreSub').textContent = '활동중 ' + active + ' · 저조 ' + low + ' · 비활동 ' + inact;
+function renderKPI(p){
+  const ts=p.reduce((s,x)=>s+x.success,0),to=p.reduce((s,x)=>s+x.order,0);
+  const core=p.filter(x=>x.success>=50).length,act=p.filter(x=>x.success>=10&&x.success<50).length,low=p.filter(x=>x.success>=1&&x.success<10).length,inact=p.filter(x=>x.success===0).length;
+  document.getElementById('kpiTotal').textContent=p.length;
+  document.getElementById('kpiActiveSub').textContent='핵심 '+core+' · 활동 '+act+' · 저조 '+low+' · 비활동 '+inact;
+  document.getElementById('kpiSuccess').textContent=ts.toLocaleString();
+  document.getElementById('kpiOrderSub').textContent='주문확정 '+to.toLocaleString()+'건 기준';
+  document.getElementById('kpiRate').textContent=to>0?(ts/to*100).toFixed(1)+'%':'0%';
+  document.getElementById('kpiCore').textContent=core;
+  document.getElementById('kpiCoreSub').textContent='활동중 '+act+' · 저조 '+low+' · 비활동 '+inact;
 }
-
-const colorMap = { core:'#38ef7d', active:'#ffd200', low:'#ff9470', inactive:'#f87171' };
-
-function renderBarChart(partners) {
-  const active = partners.filter(p => p.success > 0);
-  const ctx = document.getElementById('barChart').getContext('2d');
-  if (barChartInst) barChartInst.destroy();
-  barChartInst = new Chart(ctx, {
-    type:'bar',
-    data:{
-      labels: active.map(p => p.partnerName),
-      datasets:[{
-        label:'누적 성사',
-        data: active.map(p => p.success),
-        backgroundColor: active.map(p => colorMap[getStatus(p.success)] + 'bb'),
-        borderColor:     active.map(p => colorMap[getStatus(p.success)]),
-        borderWidth:1, borderRadius:5
-      }]
-    },
-    options:{
-      responsive:true,
-      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c => ' 누적 성사: '+c.raw+'건'}} },
-      scales:{
-        x:{ ticks:{color:'#7a8fa3',font:{size:10},maxRotation:35}, grid:{color:'#1e2d4a'} },
-        y:{ ticks:{color:'#7a8fa3'}, grid:{color:'#1e2d4a'} }
-      }
-    }
-  });
+const cm={core:'#38ef7d',active:'#ffd200',low:'#ff9470',inactive:'#f87171'};
+function renderBar(p){
+  const act=p.filter(x=>x.success>0);
+  const ctx=document.getElementById('barChart').getContext('2d');
+  if(barInst)barInst.destroy();
+  barInst=new Chart(ctx,{type:'bar',data:{labels:act.map(x=>x.partnerName),datasets:[{label:'누적성사',data:act.map(x=>x.success),backgroundColor:act.map(x=>cm[getStatus(x.success)]+'bb'),borderColor:act.map(x=>cm[getStatus(x.success)]),borderWidth:1,borderRadius:5}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#7a8fa3',font:{size:10},maxRotation:35},grid:{color:'#1e2d4a'}},y:{ticks:{color:'#7a8fa3'},grid:{color:'#1e2d4a'}}}}});
 }
-
-function renderDoughnut(partners) {
-  const core   = partners.filter(p => p.success >= 50).length;
-  const active = partners.filter(p => p.success >= 10 && p.success < 50).length;
-  const low    = partners.filter(p => p.success >= 1  && p.success < 10).length;
-  const inact  = partners.filter(p => p.success === 0).length;
-
-  const ctx = document.getElementById('doughnutChart').getContext('2d');
-  if (doughnutInst) doughnutInst.destroy();
-  doughnutInst = new Chart(ctx, {
-    type:'doughnut',
-    data:{
-      labels:['핵심 (50+)','활동중 (10~49)','저조 (1~9)','비활동'],
-      datasets:[{ data:[core,active,low,inact], backgroundColor:['#38ef7d','#ffd200','#ff9470','#f87171'], borderColor:'#1a2340', borderWidth:3, hoverOffset:8 }]
-    },
-    options:{ responsive:true, cutout:'68%', plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c => ' '+c.label+': '+c.raw+'개'}} } }
-  });
-
-  const labels = [
-    {color:'#38ef7d', text:'핵심 (50+) · '+core+'개'},
-    {color:'#ffd200', text:'활동중 · '+active+'개'},
-    {color:'#ff9470', text:'저조 · '+low+'개'},
-    {color:'#f87171', text:'비활동 · '+inact+'개'}
-  ];
-  document.getElementById('donutLegend').innerHTML = labels.map(l =>
-    '<div class="ldot"><span style="background:'+l.color+'"></span>'+l.text+'</div>'
-  ).join('');
+function renderDonut(p){
+  const c=p.filter(x=>x.success>=50).length,a=p.filter(x=>x.success>=10&&x.success<50).length,l=p.filter(x=>x.success>=1&&x.success<10).length,i=p.filter(x=>x.success===0).length;
+  const ctx=document.getElementById('doughnutChart').getContext('2d');
+  if(donutInst)donutInst.destroy();
+  donutInst=new Chart(ctx,{type:'doughnut',data:{labels:['핵심(50+)','활동중','저조','비활동'],datasets:[{data:[c,a,l,i],backgroundColor:['#38ef7d','#ffd200','#ff9470','#f87171'],borderColor:'#1a2340',borderWidth:3,hoverOffset:8}]},options:{responsive:true,cutout:'68%',plugins:{legend:{display:false}}}});
+  document.getElementById('donutLegend').innerHTML=[{color:'#38ef7d',t:'핵심(50+) · '+c+'개'},{color:'#ffd200',t:'활동중 · '+a+'개'},{color:'#ff9470',t:'저조 · '+l+'개'},{color:'#f87171',t:'비활동 · '+i+'개'}].map(x=>'<div class="ldot"><span style="background:'+x.color+'"></span>'+x.t+'</div>').join('');
 }
-
-function renderMonthlyChart(partners, monthly) {
-  // Get top 5 active partners
-  const top5 = partners.filter(p => p.success >= 10).slice(0, 5);
-  const allMonths = [...new Set(monthly.map(m => m.month))].sort();
-  const last6 = allMonths.slice(-6);
-
-  const colors = ['#38ef7d','#63cab7','#ffd200','#ff9470','#b48ef7'];
-  const datasets = top5.map((p, i) => {
-    const data = last6.map(month => {
-      const entry = monthly.find(m => m.partnerUsid === p.partnerUsid && m.month === month);
-      return entry ? entry.success : 0;
-    });
-    return {
-      label: p.partnerName,
-      data: data,
-      borderColor: colors[i],
-      backgroundColor: colors[i] + '22',
-      tension: 0.4,
-      fill: false,
-      pointRadius: 4,
-      pointBackgroundColor: colors[i]
-    };
-  });
-
-  const ctx = document.getElementById('monthlyChart').getContext('2d');
-  if (monthlyChartInst) monthlyChartInst.destroy();
-  monthlyChartInst = new Chart(ctx, {
-    type:'line',
-    data:{ labels:last6, datasets:datasets },
-    options:{
-      responsive:true,
-      plugins:{ legend:{ labels:{color:'#aabbcc', font:{size:11}} }, tooltip:{mode:'index', intersect:false} },
-      scales:{
-        x:{ ticks:{color:'#7a8fa3'}, grid:{color:'#1e2d4a'} },
-        y:{ ticks:{color:'#7a8fa3'}, grid:{color:'#1e2d4a'} }
-      }
-    }
-  });
-  document.getElementById('monthlyChartTitle').textContent = '월별 성사 트렌드 (최근 6개월, 활동파트너 TOP5)';
+function renderMonthly(partners,monthly){
+  const top5=partners.filter(p=>p.success>=10).slice(0,5);
+  const months=[...new Set(monthly.map(m=>m.month))].sort().slice(-6);
+  const colors=['#38ef7d','#63cab7','#ffd200','#ff9470','#b48ef7'];
+  const datasets=top5.map((p,i)=>({label:p.partnerName,data:months.map(m=>{const e=monthly.find(x=>x.partnerUsid===p.partnerUsid&&x.month===m);return e?e.success:0;}),borderColor:colors[i],backgroundColor:colors[i]+'22',tension:0.4,fill:false,pointRadius:4,pointBackgroundColor:colors[i]}));
+  const ctx=document.getElementById('monthlyChart').getContext('2d');
+  if(monthInst)monthInst.destroy();
+  monthInst=new Chart(ctx,{type:'line',data:{labels:months,datasets:datasets},options:{responsive:true,plugins:{legend:{labels:{color:'#aabbcc',font:{size:11}}}},scales:{x:{ticks:{color:'#7a8fa3'},grid:{color:'#1e2d4a'}},y:{ticks:{color:'#7a8fa3'},grid:{color:'#1e2d4a'}}}}});
+  document.getElementById('monthlyChartTitle').textContent='월별 성사 트렌드 (최근 6개월, 활동파트너 TOP5)';
 }
-
-function renderCumulTable(partners) {
-  const max = Math.max(...partners.map(p => p.success));
-  const tbody = document.getElementById('cumulBody');
-  tbody.innerHTML = partners.map((p, i) => {
-    const st = getStatus(p.success);
-    const stInfo = statusMap[st];
-    const pct = max > 0 ? (p.success/max*100).toFixed(1) : 0;
-    const rate = p.order > 0 ? (p.success/p.order*100).toFixed(1) : '0.0';
-    const rateCls = parseFloat(rate) >= 80 ? 'conv-ok' : parseFloat(rate) >= 50 ? 'conv-warn' : 'conv-danger';
-    return '<tr>' +
-      '<td style="color:#5c6f88;font-size:.78rem;text-align:center">'+(i+1)+'</td>' +
-      '<td><div class="partner-name">'+p.partnerName+'</div></td>' +
-      '<td><div class="agent-name">'+p.agentName+'</div></td>' +
-      '<td class="num">'+p.consult.toLocaleString()+'</td>' +
-      '<td class="num">'+p.order.toLocaleString()+'</td>' +
-      '<td class="num" style="color:#f87171">'+p.cancel.toLocaleString()+'</td>' +
-      '<td class="num" style="font-weight:700;color:#fff">'+p.success.toLocaleString()+'</td>' +
-      '<td style="min-width:70px"><div class="bar-mini"><div class="bar-fill '+st+'" style="width:'+pct+'%"></div></div></td>' +
-      '<td class="num"><span class="'+rateCls+'">'+rate+'%</span></td>' +
-      '<td><span class="badge '+stInfo.cls+'">'+stInfo.label+'</span></td>' +
-      '</tr>';
+function renderCumulTable(p){
+  const max=Math.max(...p.map(x=>x.success));
+  document.getElementById('cumulBody').innerHTML=p.map((x,i)=>{
+    const st=getStatus(x.success),si=statusMap[st],pct=max>0?(x.success/max*100).toFixed(1):0,rate=x.order>0?(x.success/x.order*100).toFixed(1):'0.0',rc=parseFloat(rate)>=80?'conv-ok':parseFloat(rate)>=50?'conv-warn':'conv-danger';
+    return '<tr><td style="color:#5c6f88;text-align:center;font-size:.78rem">'+(i+1)+'</td><td><div class="partner-name">'+x.partnerName+'</div></td><td><div class="agent-name">'+x.agentName+'</div></td><td class="num">'+x.consult.toLocaleString()+'</td><td class="num">'+x.order.toLocaleString()+'</td><td class="num" style="color:#f87171">'+x.cancel.toLocaleString()+'</td><td class="num" style="font-weight:700;color:#fff">'+x.success.toLocaleString()+'</td><td style="min-width:70px"><div class="bar-mini"><div class="bar-fill '+st+'" style="width:'+pct+'%"></div></div></td><td class="num"><span class="'+rc+'">'+rate+'%</span></td><td><span class="badge '+si.cls+'">'+si.label+'</span></td></tr>';
   }).join('');
 }
-
-function renderMonthlyTable(monthly) {
-  // Sort: month desc, success desc
-  const sorted = [...monthly].sort((a,b) => b.month.localeCompare(a.month) || b.success - a.success);
-  const active = sorted.filter(m => m.success > 0 || m.order > 0);
-  const tbody = document.getElementById('monthlyBody');
-  tbody.innerHTML = active.map(m => {
-    const rate = m.order > 0 ? (m.success/m.order*100).toFixed(1) : '0.0';
-    const rateCls = parseFloat(rate) >= 80 ? 'conv-ok' : parseFloat(rate) >= 50 ? 'conv-warn' : 'conv-danger';
-    return '<tr>' +
-      '<td style="color:#63cab7;font-weight:600">'+m.month+'</td>' +
-      '<td><div class="partner-name">'+m.partnerName+'</div></td>' +
-      '<td><div class="agent-name">'+m.agentName+'</div></td>' +
-      '<td class="num">'+m.consult.toLocaleString()+'</td>' +
-      '<td class="num">'+m.order.toLocaleString()+'</td>' +
-      '<td class="num" style="color:#f87171">'+m.cancel.toLocaleString()+'</td>' +
-      '<td class="num" style="font-weight:700;color:#fff">'+m.success.toLocaleString()+'</td>' +
-      '<td class="num"><span class="'+rateCls+'">'+rate+'%</span></td>' +
-      '</tr>';
-  }).join('');
+function renderMonthlyTable(monthly){
+  const sorted=[...monthly].sort((a,b)=>b.month.localeCompare(a.month)||b.success-a.success).filter(m=>m.success>0||m.order>0);
+  document.getElementById('monthlyBody').innerHTML=sorted.map(m=>{const rate=m.order>0?(m.success/m.order*100).toFixed(1):'0.0',rc=parseFloat(rate)>=80?'conv-ok':parseFloat(rate)>=50?'conv-warn':'conv-danger';return '<tr><td style="color:#63cab7;font-weight:600">'+m.month+'</td><td><div class="partner-name">'+m.partnerName+'</div></td><td><div class="agent-name">'+m.agentName+'</div></td><td class="num">'+m.consult.toLocaleString()+'</td><td class="num">'+m.order.toLocaleString()+'</td><td class="num" style="color:#f87171">'+m.cancel.toLocaleString()+'</td><td class="num" style="font-weight:700;color:#fff">'+m.success.toLocaleString()+'</td><td class="num"><span class="'+rc+'">'+rate+'%</span></td></tr>';}).join('');
 }
-
-function showTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0 && tab==='cumul') || (i===1 && tab==='monthly')));
-  document.getElementById('cumulTable').style.display = tab === 'cumul' ? 'table' : 'none';
-  document.getElementById('monthlyTable').style.display = tab === 'monthly' ? 'table' : 'none';
+function showTab(tab){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&tab==='cumul')||(i===1&&tab==='monthly')));
+  document.getElementById('cumulTable').style.display=tab==='cumul'?'table':'none';
+  document.getElementById('monthlyTable').style.display=tab==='monthly'?'table':'none';
 }
-
 loadData();
 </script>
 </body>
